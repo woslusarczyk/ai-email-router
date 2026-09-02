@@ -109,7 +109,7 @@ Przykładowa odpowiedź:
 }
 ```
 
-## Jak zweryfikować działanie
+## Jak zweryfikować działanie?
 
 1. Wyślij zapytanie jak wyżej (albo przez Swagger UI pod `/api/v1/docs`, przycisk "Try it out").
 2. Otwórz panel MailHog: [http://localhost:8025](http://localhost:8025).
@@ -120,5 +120,5 @@ Przykładowa odpowiedź:
 
 ## Znane ograniczenia
 
-- Klasyfikacja działu zależy od jakości lokalnego modelu LLM — mniejsze modele mogą częściej trafiać w fallback `other@example.com` przy niejednoznacznych zgłoszeniach.
-- Brak automatycznych testów jednostkowych/integracyjnych w tej wersji PoC — weryfikacja odbywa się manualnie przez endpoint i panel MailHog.
+- Kategoryzacja zgłoszeń w zależności od modelu może być mniej lub bardziej skuteczna, zgłoszenia mogą częściej być kierowane do `other@example.com` przy niejednoznacznych zgłoszeniach.
+- Brak automatycznych testów jednostkowych/integracyjnych w tej wersji PoC — weryfikacja odbywa się manualnie przez request do API i panel MailHog.
