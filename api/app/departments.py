@@ -8,6 +8,9 @@ class Department(str, Enum):
     KADRY = "kadry"
     OTHER = "other"
 
+    @property
+    def email(self) -> str:
+        return f"{self.value}@example.com"
 
 DEPARTMENT_EMAILS: dict[Department, str] = {
     Department.HUMAN_RESOURCES: "human-resources@example.com",

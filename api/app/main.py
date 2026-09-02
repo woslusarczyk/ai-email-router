@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 
 from app.agent import route_message
-from app.departments import DEPARTMENT_EMAILS
 from app.schemas import RouteRequest, RouteResponse
 
 app = FastAPI(
@@ -19,4 +18,4 @@ def health() -> dict[str, str]:
 @app.post("/api/v1/route", response_model=RouteResponse)
 def route(request: RouteRequest) -> RouteResponse:
     department = route_message(sender_email=request.email, message=request.message)
-    return RouteResponse(department=department, department_email=DEPARTMENT_EMAILS[department])
+    return RouteResponse(department=department, department_email=department.email)

@@ -6,7 +6,7 @@ from pydantic_ai.models.ollama import OllamaModel
 from pydantic_ai.providers.ollama import OllamaProvider
 
 from app.config import MODEL_NAME, OLLAMA_HOST
-from app.departments import DEPARTMENT_EMAILS, Department
+from app.departments import Department
 from app.mailer import send_email as send_email_smtp
 
 logger = logging.getLogger(__name__)
@@ -52,7 +52,7 @@ agent = Agent(model, deps_type=Deps, system_prompt=SYSTEM_PROMPT)
 async def send_email(ctx: RunContext[Deps], department: Department, subject: str) -> str:
     """Send the original, verbatim report by email to the given department, replying to the original sender."""
     send_email_smtp(
-        to=DEPARTMENT_EMAILS[department],
+        to=department.email,
         reply_to=ctx.deps.sender_email,
         subject=subject,
         body=ctx.deps.message,
@@ -84,7 +84,7 @@ def route_message(sender_email: str, message: str) -> Department:
 
     logger.error("Agent failed to call send_email after %d attempts, falling back to OTHER", MAX_ATTEMPTS)
     send_email_smtp(
-        to=DEPARTMENT_EMAILS[Department.OTHER],
+        to=Department.OTHER.email,
         reply_to=sender_email,
         subject="Nieskategoryzowane zgloszenie",
         body=message,

@@ -92,6 +92,7 @@ Model musi wspierać tool/function calling w Ollamie (np. `llama3.2`, `qwen2.5`)
 
 ## Przykładowe zapytanie
 
+**bash / zsh / Git Bash:**
 ```bash
 curl -X POST http://localhost:8000/api/v1/route \
   -H "Content-Type: application/json" \
@@ -100,6 +101,18 @@ curl -X POST http://localhost:8000/api/v1/route \
     "message": "Nie dziala mi komputer, ekran jest czarny"
   }'
 ```
+
+**PowerShell:**
+```powershell
+$body = @{
+    email   = "jan.nowak@example.com"
+    message = "Nie dziala mi komputer, ekran jest czarny"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:8000/api/v1/route" -Method Post -ContentType "application/json" -Body $body
+```
+
+> `curl` w PowerShell jest domyślnie aliasem do `Invoke-WebRequest`, a `curl.exe` (prawdziwy curl) gubi wewnętrzne cudzysłowy JSON-a podczas przekazywania argumentów przez Windows — `Invoke-RestMethod` to natywny odpowiednik, wolny od tego problemu.
 
 Przykładowa odpowiedź:
 ```json
