@@ -11,11 +11,3 @@ class Department(str, Enum):
     @property
     def email(self) -> str:
         return f"{self.value}@example.com"
-
-DEPARTMENT_EMAILS: dict[Department, str] = {
-    Department.HUMAN_RESOURCES: "human-resources@example.com",
-    Department.HELP_DESK: "help-desk@example.com",
-    Department.IT: "it@example.com",
-    Department.KADRY: "kadry@example.com",
-    Department.OTHER: "other@example.com",
-}

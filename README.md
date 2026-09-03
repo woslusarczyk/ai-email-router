@@ -122,3 +122,4 @@ Przykładowa odpowiedź:
 
 - Kategoryzacja zgłoszeń w zależności od modelu może być mniej lub bardziej skuteczna, zgłoszenia mogą częściej być kierowane do `other@example.com` przy niejednoznacznych zgłoszeniach.
 - Brak automatycznych testów jednostkowych/integracyjnych w tej wersji PoC — weryfikacja odbywa się manualnie przez request do API i panel MailHog.
+- Tytuł maila jest generowany przez model LLM, w związku z czym mogą pojawiać się błędy lub niejasne frazy
