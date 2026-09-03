@@ -49,11 +49,9 @@ ai-email-router/
 │       ├── departments.py   # enum Department + mapowanie działów - adres e-mail
 │       ├── agent.py         # agent pydantic-ai, tool send_email, tool calling retry
 │       └── mailer.py        # budowa i wysyłka e-maila przez SMTP (MailHog)
-├── ollama/
-│   ├── Dockerfile
-│   └── entrypoint.sh        # serve + automatyczny pull modelu przy starcie
-└── scripts/
-    └── smoke_test.sh
+└── ollama/
+    ├── Dockerfile
+    └── entrypoint.sh        # serve + automatyczny pull modelu przy starcie
 ```
 
 ## Jak uruchomić ?
@@ -92,27 +90,16 @@ Model musi wspierać tool/function calling w Ollamie (np. `llama3.2`, `qwen2.5`)
 
 ## Przykładowe zapytanie
 
-**bash / zsh / Git Bash:**
+**bash / Git Bash:**
 ```bash
 curl -X POST http://localhost:8000/api/v1/route \
   -H "Content-Type: application/json" \
-  -d '{
-    "email": "jan.nowak@example.com",
-    "message": "Nie dziala mi komputer, ekran jest czarny"
-  }'
+  -d '{"email": "jan.nowak@example.com", "message": "Nie dziala mi komputer, ekran jest czarny"}'
 ```
-
 **PowerShell:**
 ```powershell
-$body = @{
-    email   = "jan.nowak@example.com"
-    message = "Nie dziala mi komputer, ekran jest czarny"
-} | ConvertTo-Json
-
-Invoke-RestMethod -Uri "http://localhost:8000/api/v1/route" -Method Post -ContentType "application/json" -Body $body
+Invoke-RestMethod -Uri "http://localhost:8000/api/v1/route" -Method Post -ContentType "application/json" -Body '{"email": "jan.nowak@example.com", "message": "Nie dziala mi komputer, ekran jest czarny"}'
 ```
-
-> `curl` w PowerShell jest domyślnie aliasem do `Invoke-WebRequest`, a `curl.exe` (prawdziwy curl) gubi wewnętrzne cudzysłowy JSON-a podczas przekazywania argumentów przez Windows — `Invoke-RestMethod` to natywny odpowiednik, wolny od tego problemu.
 
 Przykładowa odpowiedź:
 ```json
@@ -124,7 +111,7 @@ Przykładowa odpowiedź:
 
 ## Jak zweryfikować działanie?
 
-1. Wyślij zapytanie jak wyżej (albo przez Swagger UI pod `/api/v1/docs`, przycisk "Try it out").
+1. Wyślij zapytanie jak wyżej (lub przez Swagger UI pod `http://localhost:8000/api/v1/docs`, przycisk "Try it out" po rozwinięciu metody POST, uzupełniając `email` i `message`).
 2. Otwórz panel MailHog: [http://localhost:8025](http://localhost:8025).
 3. Sprawdź przechwyconą wiadomość:
    - `To` — adres zgodny z wybranym działem (`it@example.com`, `help-desk@example.com`, `human-resources@example.com`, `kadry@example.com` lub `other@example.com`),
